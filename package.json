@@ -1,0 +1,26 @@
+{
+  "name": "simple-weather-service",
+  "version": "1.0.0",
+  "description": "Provides local weather data for an American city",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Write some tests...\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codyromano/simple-weather-service.git"
+  },
+  "keywords": [
+    "weather"
+  ],
+  "author": "Cody Romano",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codyromano/simple-weather-service/issues"
+  },
+  "homepage": "https://github.com/codyromano/simple-weather-service#readme",
+  "dependencies": {
+    "node-fetch": "^2.1.1"
+  }
+}
