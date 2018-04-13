@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 
 const config = require('./config');
 const methodCacheDecorator = require('./utils/methodCacheDecorator');
@@ -6,6 +7,8 @@ const WeatherAPIClient = require('./api/WeatherAPIClient');
 const APIResponse = require('./api/APIResponse');
 
 const app = express();
+app.use(cors());
+
 const weatherApiClient = new WeatherAPIClient(config.weatherApiKey);
 const TEN_MINUTES = 1000 * 60 * 60 * 10;
 
