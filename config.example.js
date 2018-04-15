@@ -1,5 +1,5 @@
 module.exports = {
   port: 8000,
-  // https://openweathermap.org
+  // https://darksky.net/dev/
   weatherApiKey: 'YOUR_API_KEY'
 };

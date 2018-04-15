@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const queryString = require('query-string');
 
 module.exports = class WeatherAPIClient {
   constructor(weatherApiKey) {
@@ -8,17 +9,19 @@ module.exports = class WeatherAPIClient {
       throw new Error('Invalid weather API key');
     }
   }
-  getCityId(name, longitude, latitude) {
-    // TODO: Find city id in JSON manifest
-    const seattleCityId = 5809844;
-    return Promise.resolve(seattleCityId);
-  }
   /**
   * @returns Promise
   */
-  async getLocalWeather(cityId) {
-    const endpoint = `http://api.openweathermap.org/data/2.5/` +
-      `forecast?id=${cityId}&APPID=${this.weatherApiKey}`;
+  async getLocalWeather(lat, lon) {
+    // https://darksky.net/dev/docs
+    const optionalParams = queryString.stringify({
+      exclude: 'hourly,daily,alerts,flags'
+    });
+
+    const location = [lat, lon].join(',');
+    const endpoint = `https://api.darksky.net/forecast/${this.weatherApiKey}` +
+      `/${location}?${optionalParams}`;
+
     const response = await fetch(endpoint);
     return response.json();
   }

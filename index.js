@@ -17,15 +17,20 @@ weatherApiClient.getLocalWeather = methodCacheDecorator(
   TEN_MINUTES
 );
 
-app.get('/weather/:name', async function(req, res) {
+// TODO: Configure ESLint to understand "async"
+app.get('/weather/:latitude/:longitude', async function(req, res) {
   const response = new APIResponse();
 
+  /*
+  const latitude = 47.608013;
+  const longitude = 122.335167;
+  */
+  const { latitude, longitude } = req.params;
+
   try {
-    const cityId = await weatherApiClient.getCityId(req.params.name);
-    response.data = await weatherApiClient.getLocalWeather(cityId);
+    response.data = await weatherApiClient.getLocalWeather(latitude, longitude);
 
   } catch (error) {
-    console.error(error);
     response.error = error;
     response.userMessage = 'There was a problem fetching weather data.';
   }
@@ -34,4 +39,3 @@ app.get('/weather/:name', async function(req, res) {
 
 console.log(`Listening on ${config.port}`);
 app.listen(config.port);
-
