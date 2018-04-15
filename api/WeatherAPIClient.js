@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 const queryString = require('query-string');
+const weatherResponseAdapter = require('./weatherResponseAdapter');
 
 module.exports = class WeatherAPIClient {
   constructor(weatherApiKey) {
@@ -22,7 +23,7 @@ module.exports = class WeatherAPIClient {
     const endpoint = `https://api.darksky.net/forecast/${this.weatherApiKey}` +
       `/${location}?${optionalParams}`;
 
-    const response = await fetch(endpoint);
-    return response.json();
+    const response = await fetch(endpoint).then(raw => raw.json());
+    return Promise.resolve(weatherResponseAdapter(response));
   }
 }
